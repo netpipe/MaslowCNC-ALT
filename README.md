@@ -6,12 +6,14 @@ not ready yet , port has been started though.
 
 
 
+
+
 BOM(bill of material) cost sofar
 www.makermadecnc.com  -> purchase 2 motors for 50 dollars
-arduino 2560 - $20
-motor shield - $10
-extra wire 16ga - $10
-chains off ebay - 
+arduino 2560 - $12
+motor shield - $8
+extra raionbow wire 16ga - $10
+chains off ebay - $60
 #25 Roller Chain Single Strand Pitch 6.35mm 1/4" 04C Roller Chain 25H-79L x0.5M
 
 
