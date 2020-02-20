@@ -1,8 +1,7 @@
 # MaslowCNC-ALT
 designed for use with arduino motor shield.
 
-not ready yet , port has been started though.
-
+set your encoder pins in setup.h
 
 
 
