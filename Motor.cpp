@@ -22,10 +22,11 @@ to be a drop in replacement for a continuous rotation servo.
 */
 
 #include "Maslow.h"
-//AF_DCMotor motorD(1);
-AF_DCMotor motor(1);
-//AF_DCMotor motor2(2);
-//AF_DCMotor motor3(3);
+
+#include "AFMotor.h"
+
+// AF_DCMotor(1) can not be used as it uses TCCR1 which is needed for timing purposes
+AF_DCMotor AFDC[] = {AF_DCMotor(2), AF_DCMotor(3), AF_DCMotor(4)};
 
 Motor::Motor(){
 
@@ -34,9 +35,7 @@ Motor::Motor(){
 
 }
 
-int  Motor::setupMotor(const int& pwmPin, const int& pin1, const int& pin2,int motorS){
-
-  motor.setmotor(motorS);
+int  Motor::setupMotor(const int& pwmPin, const int& pin1, const int& pin2){
 
   //store pin numbers as private variables
   _pwmPin = pwmPin;
@@ -63,8 +62,12 @@ int  Motor::setupMotor(const int& pwmPin, const int& pin1, const int& pin2,int m
   //stop the motor
     digitalWrite(_pin2,    HIGH); // TLE9201 ENABLE pin, LOW = on
     
+  } else if (AFMotorV1 == true) {
+    // pwmPin is actually the motor number
+    AFDC[_pwmPin].setSpeed(0);
+    AFDC[_pwmPin].run(RELEASE);
   } else {
-  //set pinmodes
+    //set pinmodes
     pinMode(_pwmPin,   OUTPUT);
     pinMode(_pin1,     OUTPUT);
     pinMode(_pin2,     OUTPUT);
@@ -91,6 +94,10 @@ void Motor::detach(){
         //stop the motor
           digitalWrite(_pin2,    HIGH); // TLE9201 ENABLE pin, LOW = on
           analogWrite(_pwmPin,   0);
+        } else if (AFMotorV1 == true) {
+          // pwmPin is actually the motor number
+          AFDC[_pwmPin].setSpeed(0);
+          AFDC[_pwmPin].run(RELEASE);
         } else {
           //stop the motor
           digitalWrite(_pin1,    HIGH);
@@ -116,10 +123,6 @@ void Motor::additiveWrite(int speed){
 }
 
 void Motor::write(int speed, bool force){
-    motor.setSpeed(_lastSpeed + speed);  
-}
-    
-void Motor::write2(int speed, bool force){
     /*
     Sets motor speed from input. Speed = 0 is stopped, -255 is full reverse, 255 is full ahead. If force is true the motor attached state will be ignored
     */
@@ -132,7 +135,16 @@ void Motor::write2(int speed, bool force){
         bool usePin1 = ((_pin1 != 4) && (_pin1 != 13) && (_pin1 != 11) && (_pin1 != 12)); // avoid PWM using timer0 or timer1
         bool usePin2 = ((_pin2 != 4) && (_pin2 != 13) && (_pin2 != 11) && (_pin2 != 12)); // avoid PWM using timer0 or timer1
         bool usepwmPin = ((TLE5206 == false) && (_pwmPin != 4) && (_pwmPin != 13) && (_pwmPin != 11) && (_pwmPin != 12)); // avoid PWM using timer0 or timer1       
-        if (!(TLE5206 || TLE9201)) { // L298 boards
+
+        if (AFMotorV1) {
+          // pwmPin is actually the motor number
+          AFDC[_pwmPin].setSpeed(speed);
+          if (forward) {
+            AFDC[_pwmPin].run(FORWARD);
+          } else {
+            AFDC[_pwmPin].run(BACKWARD);
+          }
+        } else if (!(TLE5206 || TLE9201)) { // L298 boards
             if (forward){
                 if (usepwmPin){
                     digitalWrite(_pin1 , HIGH );
@@ -243,23 +255,11 @@ void Motor::write2(int speed, bool force){
     }
 }
 
-void Motor::directWrite(int voltage){ // add direction
+void Motor::directWrite(int voltage){
     /*
     Write directly to the motor, ignoring if the axis is attached or any applied calibration.
     */
-   // write(voltage, true);
-   
-   if ( voltage < 0 ){
-    motor.run(FORWARD);
-   }else{
-    motor.run(BACKWARD);
-   }
-       motor.setSpeed(voltage); 
-       
-   if (voltage == 0 ){// turn off motor 
-      motor.run(RELEASE);
-   } 
-   
+    write(voltage, true);
 }
 
 int  Motor::attached(){

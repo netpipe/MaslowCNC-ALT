@@ -18,9 +18,6 @@
     #ifndef Motor_h
     #define Motor_h
 
-    
-#include <AFMotor.h>
-
     struct LinSegment{
         float slope  = 1;
         float intercept = 0;
@@ -36,10 +33,9 @@
         public:
             Motor();
             void attach();
-            int  setupMotor(const int& pwmPin, const int& pin1, const int& pin2,int motorS);
+            int  setupMotor(const int& pwmPin, const int& pin1, const int& pin2);
             void detach();
             void write(int speed, bool force = false);
-                        void write2(int speed, bool force = false);
             int  lastSpeed();
             void additiveWrite(int speed);
             int  attached();
@@ -50,10 +46,12 @@
             int _pin2;
             bool _attachedState = false;
             LinSegment _linSegments[4];
-            int _lastSpeed  = 0;           
+            int _lastSpeed  = 0;
+            
     };
     extern bool TLE5206;
     extern bool TLE9201;
+    extern bool AFMotorV1;
     extern int ENA;
     extern int ENB;
     extern int ENC;
