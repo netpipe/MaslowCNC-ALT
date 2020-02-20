@@ -297,6 +297,7 @@ byte  executeBcodeLine(const String& gcodeLine){
             leftAxis.motorGearboxEncoder.motor.directWrite(0);
         }
         else{
+            rightAxis.motorGearboxEncoder.motor.directWrite(0);
         }
         bit_false(sys.state,STATE_POS_ERR_IGNORE);
         return STATUS_OK;
@@ -564,6 +565,9 @@ void  sanitizeCommandString(String& cmdString){
                 // End of '()' comment. Resume line allowed.
                 cmdString.remove(pos, 1);
                 if (line_flags & LINE_FLAG_COMMENT_PARENTHESES) { line_flags &= ~(LINE_FLAG_COMMENT_PARENTHESES); }
+            }
+           else {
+                cmdString.remove(pos, 1);
             }
         }
         else {

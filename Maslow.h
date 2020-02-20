@@ -25,8 +25,6 @@
 #include <avr/interrupt.h>
 #include <Arduino.h>
 #include <Servo.h>
-//#include <AccelStepper.h>
-#include <AFMotor.h>
 
 // Define the maslow system include files. This ensures that dependencies are
 // loaded in the proper order.  Be careful moving these around.
@@ -50,6 +48,5 @@
 #include "NutsAndBolts.h"
 #include "System.h"
 #include "SimavrSerial.h"
-
 
 #endif

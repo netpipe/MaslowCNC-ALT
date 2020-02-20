@@ -23,7 +23,7 @@ to be a drop in replacement for a continuous rotation servo.
 
 #include "Maslow.h"
 
-void MotorGearboxEncoder::setup(const int& pwmPin, const int& directionPin1, const int& directionPin2, const int& encoderPin1, const int& encoderPin2, const unsigned long& loopInterval,int motorN)
+void MotorGearboxEncoder::setup(const int& pwmPin, const int& directionPin1, const int& directionPin2, const int& encoderPin1, const int& encoderPin2, const unsigned long& loopInterval)
 {
     //initialize encoder
     encoder.setup(encoderPin1,encoderPin2);
@@ -33,7 +33,7 @@ void MotorGearboxEncoder::setup(const int& pwmPin, const int& directionPin1, con
     _Kp = _Ki = _Kd = &zero;
     
     //initialize motor
-    motor.setupMotor(pwmPin, directionPin1, directionPin2,motorN);
+    motor.setupMotor(pwmPin, directionPin1, directionPin2);
     motor.write(0);
     
     //initialize the PID

@@ -19,14 +19,14 @@
 #include "Maslow.h"
 // #include <EEPROM.h>
 
-void Axis::setup(const int& pwmPin, const int& directionPin1, const int& directionPin2, const int& encoderPin1, const int& encoderPin2, const char& axisName, const unsigned long& loopInterval,int motorN)
+void Axis::setup(const int& pwmPin, const int& directionPin1, const int& directionPin2, const int& encoderPin1, const int& encoderPin2, const char& axisName, const unsigned long& loopInterval)
 {
     // I don't really like this, but I don't know how else to initialize a pointer to a value
     float zero = 0.0;
     float one = 1.0;
     _Kp = _Ki = _Kd = &zero;
     
-    motorGearboxEncoder.setup(pwmPin, directionPin1, directionPin2, encoderPin1, encoderPin2, loopInterval,motorN);
+    motorGearboxEncoder.setup(pwmPin, directionPin1, directionPin2, encoderPin1, encoderPin2, loopInterval);
     _pidController.setup(&_pidInput, &_pidOutput, &_pidSetpoint, _Kp, _Ki, _Kd, &one, REVERSE);
     
     //initialize variables
