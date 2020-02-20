@@ -285,24 +285,24 @@ void   setupAxes(){
     }
     else if (pcbVersion == 8) { // AFMotor V1
       //MP1 - Right Motor
-        encoder1A = 20;  // INPUT
-        encoder1B = 21;  // INPUT
+        encoder1A = A0;  // INPUT
+        encoder1B = A1;  // INPUT
         in1 = 0;         // OUTPUT - not used
         in2 = 0;         // OUTPUT - not used
         enA = 1;         // OUTPUT - AFMotor number
         ENA = enA;
 
         //MP2 - Z-axis
-        encoder2A = 19;  // INPUT
-        encoder2B = 18;  // INPUT
+        encoder2A = A2;  // INPUT
+        encoder2B = A3;  // INPUT
         in3 = 0;         // OUTPUT - not used
         in4 = 0;         // OUTPUT - not used
         enB = 2;         // OUTPUT - AFMotor number
         ENB = enB;
 
         //MP3 - Left Motor
-        encoder3A = 2;   // INPUT
-        encoder3B = 3;   // INPUT
+        encoder3A = A4;   // INPUT
+        encoder3B = A5;   // INPUT
         in5 = 0;         // OUTPUT - not used
         in6 = 0;         // OUTPUT - not used
         enC = 3;         // OUTPUT - AFMotor number

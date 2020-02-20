@@ -3,6 +3,10 @@ designed for use with arduino motor shield.
 
 set your encoder pins in setup.h
 
+use motors 2 3 and 4 , 1 has pins that are reserved for timing
+
+the shield has 6 analog pin spots ready to hook into
+
 
 
 
