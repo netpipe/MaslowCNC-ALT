@@ -7,6 +7,13 @@ use motors 2 3 and 4 , 1 has pins that are reserved for timing
 
 the shield has 6 analog pin spots ready to hook into
 
+unjumper the power jumper when talking to the arduino via pc.
+
+Programming
+when programming testing the motors they should still work from regular usb power for the party afmotor test that comes with arduino IDE.
+
+
+
 
 
 

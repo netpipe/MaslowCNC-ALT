@@ -156,6 +156,7 @@ class AF_DCMotor
   AF_DCMotor(uint8_t motornum, uint8_t freq = DC_MOTOR_PWM_RATE);
   void run(uint8_t);
   void setSpeed(uint8_t);
+	int setmotor(uint8_t num, uint8_t freq);
 
  private:
   uint8_t motornum, pwmfreq;

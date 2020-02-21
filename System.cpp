@@ -445,6 +445,8 @@ int getPCBVersion(){
     pinMode(VERS5,INPUT_PULLUP);
     pinMode(VERS6,INPUT_PULLUP);
     int pinCheck = (32*digitalRead(VERS6) + 16*digitalRead(VERS5) + 8*digitalRead(VERS4) + 4*digitalRead(VERS3) + 2*digitalRead(VERS2) + 1*digitalRead(VERS1));
+    Serial.print(32*digitalRead(VERS6) + 16*digitalRead(VERS5) + 8*digitalRead(VERS4) + 4*digitalRead(VERS3) + 2*digitalRead(VERS2) + 1*digitalRead(VERS1));
+    
     switch (pinCheck) {
         // boards v1.1, v1.2, v1.3 don't strap VERS3-6 low
         case B111101: case B111110: case B111111: // v1.1, v1.2, v1.3
@@ -470,9 +472,11 @@ int getPCBVersion(){
             AFMotorV1 = true;
             break;
     }
-                TLE5206 = false;
-            TLE9201 = false;
-            AFMotorV1 = true;
+           TLE5206 = false;
+           TLE9201 = false;
+           AFMotorV1 = true;
+           
+          return pinCheck=8;
             
     return pinCheck<6 ? pinCheck-1 : pinCheck;
 }

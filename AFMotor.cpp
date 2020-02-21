@@ -335,6 +335,36 @@ inline void setPWM4(uint8_t s) {
 #endif
 }
 
+int AF_DCMotor::setmotor(uint8_t num, uint8_t freq) {
+  motornum = num;
+  pwmfreq;//freq;
+
+  MC.enable();
+
+  switch (num) {
+  case 1:
+    latch_state &= ~_BV(MOTOR1_A) & ~_BV(MOTOR1_B); // set both motor pins to 0
+    MC.latch_tx();
+    initPWM1(freq);
+    break;
+  case 2:
+    latch_state &= ~_BV(MOTOR2_A) & ~_BV(MOTOR2_B); // set both motor pins to 0
+    MC.latch_tx();
+    initPWM2(freq);
+    break;
+  case 3:
+    latch_state &= ~_BV(MOTOR3_A) & ~_BV(MOTOR3_B); // set both motor pins to 0
+    MC.latch_tx();
+    initPWM3(freq);
+    break;
+  case 4:
+    latch_state &= ~_BV(MOTOR4_A) & ~_BV(MOTOR4_B); // set both motor pins to 0
+    MC.latch_tx();
+    initPWM4(freq);
+    break;
+  }
+}
+
 AF_DCMotor::AF_DCMotor(uint8_t num, uint8_t freq) {
   motornum = num;
   pwmfreq = freq;
