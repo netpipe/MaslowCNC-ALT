@@ -26,7 +26,7 @@ to be a drop in replacement for a continuous rotation servo.
 #include "AFMotor.h"
 
 // AF_DCMotor(1) can not be used as it uses TCCR1 which is needed for timing purposes
-AF_DCMotor AFDC[] = {AF_DCMotor(2), AF_DCMotor(3), AF_DCMotor(4)};
+AF_DCMotor AFDC[] = {"0",AF_DCMotor(2), AF_DCMotor(3), AF_DCMotor(4)};
 
 Motor::Motor(){
 
